@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
+#include <ctype.h>
 
 int readline(char*,unsigned int);
 int ptr_strcmp(const void*,const void*);

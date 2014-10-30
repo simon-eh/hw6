@@ -8,4 +8,4 @@ run: sort.exe
 	./sort.exe < test_file.txt
 
 clean:
-	rm -f sort.exe
+	rm -f sort

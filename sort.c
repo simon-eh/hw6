@@ -59,6 +59,7 @@ void print_usage() {
 	printf("\t-f - Ignore case.\n");
 	printf("\t-n - Sort numerically.\n");
 	printf("\t-r - Reverse sort order.\n");
+	exit(1);
 }
 
 void print_list(char** list, int size) {
@@ -68,12 +69,18 @@ void print_list(char** list, int size) {
 }
 
 int ptr_strcmp(const void *s1, const void *s2) {
-	char* p1 = (char*)s1;
-	char* p2 = (char*)s2;
+	char const *p1 = *(char* const*)s1;
+	char const *p2 = *(char* const*)s2;
 	if(numeric) {
-		strtol((const char*)s1, &p1, 10);
-		strtol((const char*)s2, &p2, 10);
+		char *a;
+		char *b;
+		strtol(*(char* const*)s1, &a, 10);
+		strtol(*(char* const*)s2, &b, 10);
+		p1 = a;
+		p2 = b;
 	}
+	while(isspace(*p1)) { p1++; }
+	while(isspace(*p2)) { p2++; }
 	if(reverse) {
 		if(ignore_case) {
 			return strcasecmp(p2, p1);
@@ -84,12 +91,13 @@ int ptr_strcmp(const void *s1, const void *s2) {
 	}
 	else {
 		if(ignore_case) {
-			return strcasecmp(p2, p1);
+			return strcasecmp(p1, p2);
 		}
 		else {
 			return strcmp(p1, p2);
 		}
 	}
+	
 }
 
 /* Reads a line from stdin into output. Returns 0 if at EOF */
