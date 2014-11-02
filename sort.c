@@ -10,7 +10,7 @@ int main(int argc, char const *argv[]) {
 
 	parse_args(argc,argv);
 
-	char** all_lines = malloc(MAX_LENGTH * MAX_LENGTH);
+	char** all_lines = malloc(MAX_LENGTH * MAX_LENGTH * sizeof(char*));
 	int index = 0;
 	int cont = 1;
 	while(cont && index < MAX_LENGTH*MAX_LENGTH) {
@@ -19,6 +19,7 @@ int main(int argc, char const *argv[]) {
 			cont = 0;
 		}
 	}
+	printf("Read in %d lines.\n", index);
 	qsort(all_lines, index, sizeof(char*), ptr_strcmp);
 	print_list(all_lines, index);
 	for(int i=0; i<index; i++) {
@@ -26,6 +27,29 @@ int main(int argc, char const *argv[]) {
 	}
 	free(all_lines);
 	return 0;
+}
+
+long mystrtol(char* start, char** rest) {
+	long result = 0;
+	int i = 0;
+	int multiplier = 1;
+	*rest = start;
+	while(isspace(*(start + i))) {
+		i++;
+	}
+	if(*(start + i) == '-') {
+		multiplier = -1;
+	}
+	else if(*(start + i) == '+') {
+		i++;
+	}
+	while(*(start + i) <= '9' && *(start + i) >= '0') {
+		result = 10*result + *(start + i) - '0';
+		*rest = start + i + 1;
+		i++;
+	}
+	
+	return result;
 }
 
 void parse_args(int argc, char const *argv[]) {
@@ -74,8 +98,8 @@ int ptr_strcmp(const void *s1, const void *s2) {
 	if(numeric) {
 		char *a;
 		char *b;
-		strtol(*(char* const*)s1, &a, 10);
-		strtol(*(char* const*)s2, &b, 10);
+		mystrtol(*(char* const*)s1, &a);
+		mystrtol(*(char* const*)s2, &b);
 		p1 = a;
 		p2 = b;
 	}
