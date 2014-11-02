@@ -1,0 +1,26 @@
+.\" Man page for the sort utility
+.\" Simon Ever-Hale - CSCI 241 - Fall 2014
+
+.TH sort 1 "02 November 2014" "CSCI 241" "Oberlin College"
+
+.SH NAME
+.B sort
+\- A utility for sorting alphabetically.
+
+.SH SYNOPSIS
+.B sort
+[ -r ] [ -n ] [ -f ]
+
+.SH DESCRIPTION
+Takes input from stdin, outputs line by line in ascending order according to ASCII value.
+
+.SH OPTIONS
+.IP "-n"
+Skip leading a leading number (if there is one) on each line.
+.IP "-r"
+Reverse the output order.
+.IP "-f"
+Ignore case (treat 'w' and 'W' as if they have the same ASCII value)
+
+.SH AUTHOR
+Simon Ever-Hale (Fall 2014)

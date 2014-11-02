@@ -1,3 +1,11 @@
+/** SORT.C
+ * Simon Ever-Hale
+ * Due 11/3/2014, 11:59PM
+ * CSCI 241/Prof. Kuperman
+ * A unix-style utility which takes input from stdin and sorts each line in alphabetical order according to the command line arguments.
+ * Also prints the result to stdout.
+ */
+
 #include "sort.h"
 
 #define MAX_LENGTH 1024
@@ -29,6 +37,14 @@ int main(int argc, char const *argv[]) {
 	return 0;
 }
 
+/* Print the list of char*'s, each char* getting its own line. */
+void print_list(char** list, int size) {
+	for(int i=0; i<size; i++) {
+		printf("%s\n", *(list + i));
+	}
+}
+
+/* Attempt to conver the string contained in start to a long decimal number. Ignores leading whitespaces, and converts all numbers up to the first non-number character, which is stored in rest. */
 long mystrtol(char* start, char** rest) {
 	long result = 0;
 	int i = 0;
@@ -52,6 +68,7 @@ long mystrtol(char* start, char** rest) {
 	return result;
 }
 
+/* Parse command line arguments and adjust the relevant variables based on the arguments */
 void parse_args(int argc, char const *argv[]) {
 	for(int i=1; i<argc; i++) {
 		const char* arg = argv[i];
@@ -77,6 +94,7 @@ void parse_args(int argc, char const *argv[]) {
 	}
 }
 
+/* Prints the correct usage for the program and exits with a return value of 1. */
 void print_usage() {
 	printf("Correct usage:\n");
 	printf("sort [-f -n -r]\n");
@@ -86,12 +104,7 @@ void print_usage() {
 	exit(1);
 }
 
-void print_list(char** list, int size) {
-	for(int i=0; i<size; i++) {
-		printf("%s\n", *(list + i));
-	}
-}
-
+/* Wrapper function for string comparisons, taking into account command line parameters */
 int ptr_strcmp(const void *s1, const void *s2) {
 	char const *p1 = *(char* const*)s1;
 	char const *p2 = *(char* const*)s2;
