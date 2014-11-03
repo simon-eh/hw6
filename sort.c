@@ -69,7 +69,7 @@ long mystrtol(char* start, char** rest) {
 		i++;
 	}
 	
-	return result;
+	return multiplier*result;
 }
 
 /* Parse command line arguments and adjust the relevant variables based on the arguments */

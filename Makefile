@@ -1,11 +1,10 @@
 CC=gcc
 CFLAGS=-std=c99 -Wall -Wextra -pedantic
 
+all: sort
+
 sort: sort.c
 	$(CC) $(CFLAGS) sort.c -o sort
-
-run: sort.exe
-	./sort.exe -n < test_file.txt
 
 clean:
 	rm -f sort
