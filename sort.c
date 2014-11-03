@@ -49,7 +49,9 @@ long mystrtol(char* start, char** rest) {
 	long result = 0;
 	int i = 0;
 	int multiplier = 1;
-	*rest = start;
+	if(rest != NULL) {
+		*rest = start;
+	}
 	while(isspace(*(start + i))) {
 		i++;
 	}
@@ -61,7 +63,9 @@ long mystrtol(char* start, char** rest) {
 	}
 	while(*(start + i) <= '9' && *(start + i) >= '0') {
 		result = 10*result + *(start + i) - '0';
-		*rest = start + i + 1;
+		if(rest != NULL) {
+			*rest = start + i + 1;
+		}
 		i++;
 	}
 	
